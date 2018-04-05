@@ -78,7 +78,7 @@
 
 \begin{abstract}
 %% Text of abstract (Ca 100 words)
-Splipy is a pure python library for the creation, evaluation and manipulation of B-spline and NURBS geometries. It supports n-variate splines of any dimension, but emphasis is made on the use of curves, surfaces and volumes. The library is designed primarily for analysis use, and therefore allows fine-grained control over many aspects which is not possible to achieve with conventional CAD tools.
+Splipy is a pure python library for the creation, evaluation and manipulation of B-spline and NURBS geometries. It supports $n$-variate splines of any dimension, but emphasis is made on the use of curves, surfaces and volumes. The library is designed primarily for analysis use, and therefore allows fine-grained control over many aspects which is not possible to achieve with conventional CAD tools.
 
 \end{abstract}
 
@@ -104,17 +104,24 @@ Description of your software in maximum 6 pages.
 \section{Motivation and significance}
 \label{}
 
-Introduce the scientific background and the motivation for developing the software.
+Non-uniform rational B-splines (NURBS) has been a staple technology in computer aided design (CAD) for many decades (CITATION NEEDED).
+The mathematical precision allows the user to create parametric descriptions of curves and surfaces which is required in many engineering applications.
+Recent years has seen an increased interest in the use of B-splines and NURBS directly in high-fidelity physics simulations such as the finite element method.
+The groundbreaking work for these methods can be found in \cite{hughes2005iac} and was there defined as isogeometric analysis (IGA).
+While commercial CAD tools implement a lot of NURBS tools, more often than not we find that the discretization details are obfuscated from the user.
+We propose to use Splipy as a modern easy-to-use python scripting language that will allow scientist and engineers the detailed control that they need to not only make B-spline meshes that are optimized for analysis.
 
-Explain why the software is important, and describe the exact (scientific) problem(s) it solves.
+The software allows for rapid generation of high-quality meshes that can be used directly in IGA codes.
+While Splipy offers everything needed in terms of basis function evaluations, derivatives etc. to make a stand-alone finite element solver, we envision that most users will be content to generate the geometry in Splipy followed by exporting to their in-house solvers.
 
-Indicate in what way the software has contributed (or how it will contribute in the future) to the process of scientific discovery; if available, this is to be supported by citing a research paper using the software.
+\begin{itemize}
+  \item Introduce the scientific background and the motivation for developing the software.
+  \item Explain why the software is important, and describe the exact (scientific) problem(s) it solves.
+  \item Indicate in what way the software has contributed (or how it will contribute in the future) to the process of scientific discovery; if available, this is to be supported by citing a research paper using the software.
+  \item Provide a description of the experimental setting (how does the user use the software?).
+  \item Introduce related work in literature (cite or list algorithms used, other software etc.).
+\end{itemize}
 
-Provide a description of the experimental setting (how does the user use the software?).
-
-Introduce related work in literature (cite or list algorithms used, other software etc.).
-
-Isogeometry was introduced by Hughes et.al \cite{hughes2005iac}
 
 
 \section{Software description}
