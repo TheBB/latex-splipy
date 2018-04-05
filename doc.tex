@@ -125,9 +125,23 @@ Describe the software in as much as is necessary to establish a vocabulary neede
 \subsection{Software Architecture}
 \label{}
 
-Give a short overview of the overall software architecture; provide a pictorial component overview or similar (if possible). If necessary provide implementation details.
+There are three main classes which are exposed to the user: Curve, Surface and Volume.
+All inherit from the SplineObject class which constitute a super-class and contains common methods such as affine transformations, evaluation and common get methods.
+These can be generated manually by specifying knot vectors and control points, while more high-level constructors are contained in the classes \texttt{curve\_factor}, \texttt{surface\_factory} and \texttt{volume\_factory}.
+Generally Splipy follows a bottom-up construction scheme where curves are created from points, surfaces are created from curves and finally volumes are created from the surfaces.
+
+Maybe include a class hierarchy picture.
 
 \subsection{Software Functionalities}
+\label{}
+
+In addition to elementary objects such as line, circle, disc, sphere, torus, cylinder and teapots, the factory classes contain spline-related constructors such as interpolation, least-square fit and lofting.
+Of the more complex methods we draw special attention to \texttt{curve\_factory.fit(...)}.
+
+\subsubsection{Curve fitting}
+\label{}
+
+\subsubsection{Interior from edges}
 \label{}
 
 Present the major functionalities of the software.
