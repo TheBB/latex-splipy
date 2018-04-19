@@ -39,6 +39,7 @@
   into the commandline; or anaconda promt
 \end{tcolorbox}
 
+\vspace{-2cm}
 \section{B-splines}
 Given a knot vector of nondecreasing knots $\Xi=[\xi_1, \xi_2, \xi_3, ... \xi_{n+p+1}]$ we define the set of $n$ basisis functions by
 \begin{tcolorbox}[colback=sintefblue!10!white,colframe=sintefblue,title=The basis]
@@ -46,23 +47,19 @@ Given a knot vector of nondecreasing knots $\Xi=[\xi_1, \xi_2, \xi_3, ... \xi_{n
     \label{eq:bspline}
     N_{i,p}(\xi) = \frac{\xi - \xi_i}{\xi_{i+p}-\xi_i}N_{i,p-1}(\xi) + \frac{\xi_{i+p+1}-\xi}{\xi_{i+p+1}-\xi_{i+1}}N_{i+1,p-1}(\xi),
   \end{equation}
-  and,
-  \begin{equation}
-    \label{eq:bspline-start}
-    N_{i,0}(\xi) = \left\{
-    \begin{array}{ll}
-      1  &  $if $ \ \ \xi \in [\xi_i, \xi_{i+1}) \\
-      0  &  $else$
-    \end{array}
-    \right.
-  \end{equation}
+  and special casing the 0th order functions,
+%  \begin{equation}
+%    \label{eq:bspline-start}
+%    N_{i,0}(\xi) = \left\{
+%    \begin{array}{ll}
+%      1  &  $if $ \ \ \xi \in [\xi_i, \xi_{i+1}) \\
+%      0  &  $else$
+%    \end{array}
+%    \right.
+%  \end{equation}
 \end{tcolorbox}
 
-By creating a tensor product of two or three univariate splines weighted by their controlpoints $\mathbf{B}_{i,j}$, we are able to create surface and solid representations, i.e.
-\begin{equation}
-  \mathbf{F}(\xi,\eta) = \sum_{i=1}^n \sum_{j=1}^n \mathbf{B}_{i,j} N_{i,p}(\xi)N_{j,q}(\eta)
-\end{equation}
-for bivariate surfaces.
+By creating a tensor product of two or three univariate splines weighted by their controlpoints, we are able to create surface and solid representations.
 
 \begin{center}
   \includegraphics[width=16cm]{pawn-mapping}
@@ -70,36 +67,63 @@ for bivariate surfaces.
   \normalsize{Fig 1: A trivariate NURBS solid mapping}
 \end{center}
 
+\vspace{-1cm}
 \section{Structure}
 
-The class follows a quite simple structure with a Curve, Surface and Volume class which all inherit from a parent SplineObject class. Corresponding to each of these primtitives, we collect a number of generative methods in so-called factory classes.
+The class follows a simple structure with a Curve, Surface and Volume class which all inherit from a parent SplineObject class. Corresponding to each of these primtitives, we collect a number of generative methods in so-called factory classes.
 
 \begin{center}
   \includegraphics[width=0.7\linewidth]{classstructure} \\
   \normalsize{Fig 2: Primary classes and modules}
 \end{center}
 
+\vspace{-.5cm}
 \section{Examples}
+
+Adaptive curve fitting for parametric curves.
+Uses a posteriori error estimate to refine where needed
+\begin{tcolorbox}[colback=sinteflightgrey]
+  \begin{Verbatim}[fontsize=\footnotesize]
+from splipy import *
+from numpy import pi,cos,sin,transpose,array
+
+def trefoil(u):
+  x = [    45*sin(u)- 30*cos(2*u)+113*sin(2*u)-11*cos(3*u)+27*sin(3*u),
+ 41*cos(u)-18*sin(u)- 83*cos(2*u)- 83*sin(2*u)-11*cos(3*u)+27*sin(3*u),
+ 36*cos(u)+27*sin(u)-113*cos(2*u)+ 30*sin(2*u)+11*cos(3*u)-27*sin(3*u)]
+  return transpose(array(x))
+
+knot_curve = curve_factory.fit(trefoil, 0, 2*pi)
+  \end{Verbatim}
+\end{tcolorbox}
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=0.24\textwidth]{trefoil}
+  \end{center}
+\end{figure}
+Sweep operations where one curve is swept along another
+\begin{tcolorbox}[colback=sinteflightgrey]
+  \begin{Verbatim}[fontsize=\footnotesize]
+square = 15*curve_factory.n_gon(4)
+srf = surface_factory.sweep(knot_curve, square)
+  \end{Verbatim}
+\end{tcolorbox}
+
+
+
 
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=0.24\textwidth]{Figures/tfi-1}
-    \includegraphics[width=0.24\textwidth]{Figures/tfi-2}
-    \includegraphics[width=0.24\textwidth]{Figures/tfi-3}
-    \includegraphics[width=0.24\textwidth]{Figures/tfi-4} \\
-    \small{
-      Fig 3: Line-to-surface construction of ``O-mesh'' around an airfoil.
-    }
-  \end{center}
-\end{figure}
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=0.32\textwidth]{Figures/wingtip-first}
-    \includegraphics[width=0.32\textwidth]{Figures/wingtip-centers}
-    \includegraphics[width=0.32\textwidth]{Figures/wingtip-flower} \\
-    \small{
-      Fig 4: Line-to-surface construction of a ``flower mesh'' around a wingtip.
-    }
+    \includegraphics[width=0.24\textwidth]{Figures/tfi-4}
+    \includegraphics[width=0.24\textwidth]{Figures/wingtip-flower} \\
+%    \small{
+%      Fig 3: Line-to-surface construction of ``O-mesh'' around an airfoil.
+%    }
+%    \small{
+%      Fig 4: Line-to-surface construction of a ``flower mesh'' around a wingtip.
+%    }
   \end{center}
 \end{figure}
 \begin{figure}[ht]
@@ -132,15 +156,15 @@ cons = domain.boundary.project(0, ns.phi, ns.x,     degree=3)
 ns.w = A.solve(b, constrain=cons)
 \end{Verbatim}
   \end{tcolorbox}
-  \vspace{-1cm}
-  \begin{figure}
-    \begin{center}
-      \includegraphics[width=0.24\textwidth]{nutilssolution}
-      \includegraphics[width=0.24\textwidth]{right.png} \\
-      Solution $\quad\quad$ More nutils
-    \end{center}
-  \end{figure}
 \end{tcolorbox}
+\vspace{-1cm}
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.24\textwidth]{nutilssolution}
+    \includegraphics[width=0.24\textwidth]{right.png} \\
+    Solution $\quad\quad$ More nutils
+  \end{center}
+\end{figure}
 
 \section{Conclusion}
 
