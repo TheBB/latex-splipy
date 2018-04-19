@@ -120,9 +120,9 @@ The class follows a quite simple structure with a Curve, Surface and Volume clas
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white,colframe=sintefblue,title=Integration with Nutils]
-  The package is distributed through the Python Package Index (PyPI) and can be installed by typing
+  The package contains functions for converting to nutils
   \begin{tcolorbox}[colback=sinteflightgrey]
-  \begin{Verbatim}[fontsize=\small]
+  \begin{Verbatim}[fontsize=\footnotesize]
 from splipy import *
 from nutils import *
 
@@ -139,13 +139,9 @@ ns.w = A.solve(b, constrain=cons)\end{Verbatim}
   \end{tcolorbox}
   \begin{figure}
     \begin{center}
-      \includegraphics[width=0.4\linewidth]{nutilssolution} \\
-    \end{center}
-  \end{figure}
-  \begin{figure}
-    \begin{center}
-      \includegraphics[width=0.2\linewidth]{right.png} \\
-      See also: the stand on nutils
+      \includegraphics[width=0.24\textwidth]{nutilssolution}
+      \includegraphics[width=0.24\textwidth]{right.png} \\
+      Solution $\quad\quad$ More nutils
     \end{center}
   \end{figure}
 \end{tcolorbox}
@@ -155,7 +151,7 @@ ns.w = A.solve(b, constrain=cons)\end{Verbatim}
 Write som summary things here.
 Maybe even box it all in.
 
-{\small \textbf{Disclaimer:}
+{\footnotesize \textbf{Disclaimer:}
 Splipy does not contain a graphical user interface.
 All figures produced on this poster have been created using 3rd party visualizers.
 Splipy is to be considered an API ready to be integrated into other custom applications.
