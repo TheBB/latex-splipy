@@ -123,17 +123,25 @@ The class follows a quite simple structure with a Curve, Surface and Volume clas
   The package is distributed through the Python Package Index (PyPI) and can be installed by typing
   \begin{tcolorbox}[colback=sinteflightgrey]
   \begin{Verbatim}[fontsize=\small]
-import splipy.surface_factory as sf
+from splipy import *
 from nutils import *
-surf = sf.disc(r=3, center=(2,2))
-domain = mesh.rectilinear(surf.knots())
-ns = Namespace()
-ns.cp = splipy_to_nutils(surf)
-ns.phi = domain.basis('spline', p=2)
-ns.x = 'phi_n cp_ni'
-A = domain.integrate(ns.eval_ij('phi_i,k phi_j,k'))
-u = A.solve() \end{Verbatim}
+
+surf = surface_factory.disc(r=2, type='square')
+surf = surf.rebuild(p=3, n=20)
+domain, geom = utils.nutils.splipy_to_nutils(surf)
+ns = function.Namespace()
+ns.x   = geom
+ns.phi = domain.basis('spline', degree=2)
+A = domain.integrate(ns.eval_ij('phi_i,k phi_j,k'), degree=3)
+b = domain.integrate(ns.eval_i('phi_i sin(7 x_0)'), degree=3)
+cons = domain.boundary.project(0, ns.phi, ns.x,     degree=3)
+ns.w = A.solve(b, constrain=cons)\end{Verbatim}
   \end{tcolorbox}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.4\linewidth]{nutilssolution} \\
+    \end{center}
+  \end{figure}
   \begin{figure}
     \begin{center}
       \includegraphics[width=0.2\linewidth]{right.png} \\
