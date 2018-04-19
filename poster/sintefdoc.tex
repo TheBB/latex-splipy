@@ -1,0 +1,66 @@
+\documentclass{sintefdoc}
+
+\title{The \texttt{sintefdoc} class}
+\author{Federico Zenith}
+
+\begin{document}
+\maketitle
+
+The \texttt{sintefdoc} class is a base class that was not originally intended
+to be used by itself, rather it contains a number of commonly used options,
+commands and items to be used in subclasses.
+
+\section{Class Options}
+The class is a subclass of the standard \texttt{article} class, and takes all
+its options with the exception of \texttt{twocolumn}, which is ignored.
+
+The default language is British English, which can be explicitly set with
+options \texttt{english} or \texttt{engelsk}; Norwegian can similarly be set
+with \texttt{norwegian} or \texttt{norsk}.
+The language influences both some labels and the hyphenation patterns,
+by means of the \texttt{polyglossia} package.
+
+The classification of the document can be set with
+\texttt{unrestricted}, \texttt{internal} (default), \texttt{restricted} and
+\texttt{confidential}.
+Some subclasses do not make use of this option, for example
+\texttt{sintefletter}.
+
+If you want to use digital signatures in SIPOK, you should set the
+\texttt{digital} option; manual signatures are the default, and can be
+forced with the \texttt{manual} option.
+Digital signatures may become the default at a later point.
+
+\section{The Configuration File}
+User custom data is stored in a particular file, \texttt{sintefconfig.tex}.
+Since this data is always the same for a given user, it is tedious to reinsert
+it over and over.
+The file contains data such as mailing and visiting addresses, phone numbers,
+e-mail and so on; customise the file to your needs and place it beside
+\texttt{sintefdoc.cls}.
+
+\section{Dependencies}
+The class depends on the \texttt{sintefcolor} package and on some other packages
+found in most modern \TeX\ distributions, such as \TeX\ Live or MiK\TeX.
+
+Instead of Times New Roman, the package uses it clone XITS,
+from the \texttt{xits} \TeX\ package. The package tries first to find the Calibri
+font in the system, which this should work on all machines with Office 2007 or
+later. If Calibri is not found, as it can be the case on Linux machines, the
+package tries a compatible font called Carlito.
+Note that compilation will take longer without Calibri, as Xe\LaTeX will spend some
+time trying to find it.
+
+\section{Compilation}
+Since SINTEF templates mandate specific TTF fonts (e.g. Calibri and Times New
+Roman), documents must be compiled with Xe\LaTeX\ or Lua\LaTeX, not \LaTeX\ or
+PDF\LaTeX.
+These more modern compilers produce directly a PDF, otherwise they works just
+like \LaTeX.
+
+\begin{verbatim}
+$ xelatex document.tex
+$ lualatex document.tex
+\end{verbatim}
+
+\end{document}

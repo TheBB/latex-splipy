@@ -1,0 +1,47 @@
+\documentclass[unrestricted]{sintefmeetingnotice}
+
+\usepackage{xltxtra}
+
+\title{The \texttt{sintefmeetingnotice} Package}
+\author{Federico Zenith}
+\project{SIN\TeX}
+\wheremeeting{eRoom}
+\whenmeeting{None too soon}
+
+\recipient{SINTEF employees}
+\recipient{\LaTeX\ hackers}
+\recipient{\LaTeX\ users}
+\recipient[information]{Word users}
+
+\begin{document}
+\frontmatter
+
+\section*{Agenda}
+\begin{itemize}
+  \item HMS \& Ethics
+  \item Misc.
+\end{itemize}
+
+\section*{Meeting notices}
+This class allows to write meeting notices in the SINTEF official style.
+It is a subclass of \texttt{sintefdoc}, so see its documentation too.
+
+Title and date are set with \LaTeX's usual commands \verb|\title| and
+\verb|\date|; the initiator is set with the \verb|\author| command, and is
+automatically first in the distribution list as a participant.
+
+Several other options are self-documenting and will default to a useful
+tooltip à la \texttt{set with \textbackslash command}.
+
+Other recipients can be added with the \verb|\recipient| command, which
+takes \emph{one} of the following optional arguments: \verb|participant|, which
+is the default, and \verb|information|.
+For example,
+\begin{verbatim}
+\recipient{\LaTeX\ users}
+\recipient[information]{Word users}
+\end{verbatim}
+Recipients should be set in the preamble.
+
+
+\end{document}

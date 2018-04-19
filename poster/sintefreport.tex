@@ -1,0 +1,53 @@
+\documentclass[unrestricted,unrestrictedsummary]{sintefreport}
+
+\title{The \texttt{sintefreport} class}
+\subtitle{A \LaTeX\ class}
+\version{1.0}
+\reportnumber{1337}
+\author{Federico Zenith}
+\client{SINTEF \LaTeX\ users}
+\project{SIN\TeX}
+\attachmentpages{}
+\abstract{\LaTeX\ is just better.}
+\prepared{Federico Zenith}
+\titlefigure{%
+  \begin{center}
+    \Huge \LaTeX\\
+    +\\
+    \includegraphics[width=0.4\textwidth]{Sintef_logo_blue}
+  \end{center}
+}
+\keywords{\LaTeX\\Report\\Typesetting}
+
+\begin{document}
+\frontmatter
+The simplest report you can write is:
+\begin{verbatim}
+\documentclass{sintefreport}
+\title{My Report}
+\begin{document}
+\frontmatter
+Hello world!
+\backmatter
+\end{document}
+\end{verbatim}
+
+Use \verb|\frontmatter| to set up the front page, history page and
+table of contents, and \verb|\backmatter| to set up the back cover.
+
+\section{Class Options}
+This class takes some special options for classification:
+\texttt{unrestrictedsummary}, \texttt{restrictedsummary} and
+\texttt{confidentialsummary} determine the classification of the summary
+page (page 1).
+
+Fields can be set with several commands.
+All relevant fields default to a ``Set with \verb|\command|'' description,
+so, to know which command to use to set a certain field, just compile a the
+empty file and look at the resulting \textsc{pdf}.
+
+This class inherits from \texttt{sintefdoc}, so everything mentioned in that
+class' documentation is valid here as well.
+
+\backmatter
+\end{document}

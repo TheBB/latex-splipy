@@ -1,0 +1,123 @@
+% Template for joint SINTEF-NTNU presentations with LaTeX beamer.
+%
+% by Federico Zenith, federico.zenith@sintef.no.
+% Derived (through several iterations) from Håvard Berland's
+% beamerthementnu class.
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+\ProvidesClass{beamerthemesintefntnu}[2011/09/20]
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{etoolbox,graphicx}
+
+% Following commands will not be activated for article mode.
+\mode<presentation>
+
+% Overall page size
+\setbeamersize{text margin left=5mm,text margin right=5mm}
+
+% No navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% Set colours
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{frametitle}{fg=black}
+\setbeamercolor{alerted text}{fg=red}
+\setbeamercolor{example text}{fg=black,bg=gray}
+\setbeamercolor{structure}{fg=black}
+\setbeamercolor{itemize item}{fg=black}
+\setbeamercolor{itemize subitem}{fg=black}
+\setbeamercolor{itemize subsubitem}{fg=black}
+
+% Code to get prettier boxes
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercolor{block title}{fg=black,bg=gray}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=lightgray}
+
+\setbeamerfont{author}{size=\scriptsize,series=\bfseries}
+\setbeamerfont{title}{series=\bfseries}
+\setbeamerfont{subtitle}{series=\mdseries}
+\setbeamerfont{institute}{series=\bfseries}
+\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamerfont{date}{size=\tiny}
+
+% Bullets in several levels
+\defbeamertemplate*{itemize item}{sintefntnu}{\textbullet}
+\defbeamertemplate*{itemize subitem}{sintefntnu}{$-$}
+\defbeamertemplate*{itemize subsubitem}{sintefntnu}{\guillemotright}
+
+\defbeamertemplate*{frametitle}{sintefntnu theme}
+{
+  \begin{beamercolorbox}[ht=15mm,dp=2mm]{frametitle}
+    \usebeamerfont{frametitle}\insertframetitle\\
+    \usebeamerfont{framesubtitle}
+    \ifblank{\insertframesubtitle}{\vphantom{phantomText}}{\insertframesubtitle}
+  \end{beamercolorbox}
+}
+
+\defbeamertemplate*{title page}{sintefntnu}
+{
+  \begin{beamercolorbox}[ht=15mm,sep=3pt,left]{author}
+    \usebeamerfont{author}\insertauthor
+  \end{beamercolorbox}
+
+  \begin{beamercolorbox}[sep=3pt,left]{title}
+    \usebeamerfont{title}\inserttitle
+  \end{beamercolorbox}
+
+  \begin{beamercolorbox}[ht=15mm,sep=3pt,left]{subtitle}
+    \usebeamerfont{subtitle}\insertsubtitle
+  \end{beamercolorbox}
+
+  \begin{beamercolorbox}[ht=15mm,sep=3pt,left]{institute}
+    \usebeamerfont{institute}\insertinstitute
+  \end{beamercolorbox}
+}
+
+\setbeamerfont{footline}{size=\scriptsize}
+\defbeamertemplate*{footline}{sintefntnu theme}
+{%
+  \hfill\rule{0.925\textwidth}{0.1mm}\hfill{}
+
+  \begin{beamercolorbox}[wd=\textwidth,ht=8mm]{footline}
+    \hspace{5mm}
+    {\usebeamerfont{date}\insertdate}
+    \hfill
+    \raisebox{-0.5ex}{\includegraphics[height=2.5ex]{Sintef_logo_black}}
+    \hspace{5mm}
+    \includegraphics[height=1.5ex]{NTNU_logo}
+    \hspace*{10mm}
+
+    \vspace*{3mm}
+  \end{beamercolorbox}
+}
+
+\mode<all>
+
+\newcommand{\backmatter}{
+  \begin{frame}
+    \parbox[c][80mm][c]{\textwidth}{
+      \centering
+      \ifdefstring{\languagename}{norsk}{Internasjonalt fremragende sammen}
+                                        {Internationally outstanding}
+
+      \vspace{2ex}
+
+      \raisebox{-0.5ex}{\includegraphics[height=2.5ex]{Sintef_logo_black}}
+      \hspace{5mm}
+      \includegraphics[height=1.5ex]{NTNU_logo}
+    }
+  \end{frame}
+}

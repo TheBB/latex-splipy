@@ -1,0 +1,39 @@
+\documentclass[unrestricted]{sintefprojectmemo}
+
+\title{The \texttt{sintefprojectmemo} class}
+\subtitle{A \LaTeX\ class}
+\version{1.1}
+\author{Federico Zenith}
+\client{SINTEF \LaTeX\ users}
+\project{SIN\TeX}
+\attachmentpages{}
+\abstract{\LaTeX\ is just better.}
+\prepared{Federico Zenith}
+
+\begin{document}
+\frontmatter
+\section{Minimal Usage}
+The simplest project memo you can write is:
+\begin{verbatim}
+\documentclass{sintefprojectmemo}
+\title{My Memo}
+\begin{document}
+\frontmatter
+Hello world!
+\backmatter
+\end{document}
+\end{verbatim}
+
+Use \verb|\frontmatter| to set up the front page, history page and
+table of contents, and \verb|\backmatter| to set up the back cover.
+
+Setting a title with \verb|\title| is necessary.
+You can also set the author(s) with \verb|\author| and the date
+(which defaults to today's) with \verb|\date|.
+
+Commands to set up the remaining fields will be default to a tip
+\'a la ``\textsf{Set this with }\verb|\command{}|''.
+
+
+\backmatter
+\end{document}

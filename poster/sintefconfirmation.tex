@@ -1,0 +1,42 @@
+\documentclass{sintefconfirmation}
+
+\orderreference{your telepathic longing for \LaTeX\ classes}
+\orderdated{A long while back}
+\orderby{The \LaTeX'ers collective hivemind}
+\abstract{Developing an appropriate SINTEF template for order confirmations}
+\author{Federico Zenith}
+\client{SINTEF \LaTeX ers}
+\clientref{Donald Knuth}
+\projectname{The \texttt{sintefconfirmation} class}
+\project{SIN\TeX}
+
+\begin{document}
+\frontmatter
+
+\section*{Description of the Class}
+This class allows writing confirmations of orders according to the standard
+SINTEF template.
+
+Most commands appear with a tooltip à la ``Set with \verb|\command|'' when not
+set.
+Otherwise, you should specify \verb|\author|, \verb|\date| if it should not
+default to today's, \verb|\institute| if it is not the default specified in
+configuration file \texttt{sintefconfig.tex}.
+
+Remember using \verb|\frontmatter| at the beginning and \verb|\backmatter| at
+the end for proper formatting.
+
+The standard sections of the class can be recalled with commands
+\verb|\moneysection|, \verb|\timesection| and \verb|\specialsection|.
+
+\moneysection
+Free
+
+\timesection
+Ready now
+
+\specialsection
+None
+
+\backmatter
+\end{document}

@@ -1,0 +1,38 @@
+\documentclass[unrestricted]{sintefmemo}
+
+\usepackage{xltxtra}
+
+\title{The \texttt{sintefmemo} Package}
+\author{Federico Zenith}
+\project{SIN\TeX}
+
+\recipient[information]{SINTEF employees}
+\recipient[comments]{\LaTeX\ hackers}
+\recipient[attention,agreed]{\LaTeX\ users}
+\recipient[attention]{Word users}
+
+\begin{document}
+\frontmatter
+
+This document presents the \texttt{sintefmemo} class.
+A subclass of \texttt{sintefdoc}, it reproduces the behaviour of
+the SINTEF memo template.
+
+Title, author and date are set with \LaTeX's usual commands
+\verb|\title|, \verb|\author| and \verb|\date|.
+
+The recipients are specified in the preamble with the \verb|\recipient|
+command.
+The recipient is specified in the mandatory argument, whereas the optional
+argument can include the keywords \verb|attention|, \verb|comments|,
+\verb|information|, \verb|agreed|, or a combination thereof separated by
+commas, \emph{without intervening spaces}. For example:
+\begin{verbatim}
+\recipient[attention,agreed]{\LaTeX\ users}
+\end{verbatim}
+
+Finally, the project is set with the \verb|\project| command, and
+to typeset the first page you need to insert the \verb|\frontmatter|
+command just after \verb|\begin{document}|.
+
+\end{document}

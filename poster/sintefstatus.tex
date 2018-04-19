@@ -1,0 +1,94 @@
+\documentclass[unrestricted]{sintefstatus}
+
+\title{SIN\TeX}
+\client{SINTEF's \LaTeX\ users}
+\clientref{B0U771M3}
+\statusdate{31st July, 2011}
+\project{SIN\TeX}
+\lastexp{1 NOK}
+\totalexp{2 NOK}
+\wages{3 NOK}
+\planexp{4 NOK}
+\lasthrs{5}
+\totalhrs{6}
+\academic{Yes}
+\onschedule{Yes}
+\onbudget{Yes}
+\manager{Federico Zenith}
+\approved{Hopefully you users $\ddot\smile$}
+
+\plannedexpenditures{
+              (2011-03-01, 10)
+              (2011-04-01, 20)
+              (2011-05-01, 30)
+              (2011-06-01, 40)
+              (2011-07-01, 50)
+              (2011-08-01, 70)
+              (2011-09-01, 75)
+              (2011-10-01, 80) }
+\accumulatedexpenditures{
+              (2011-03-01,  8)
+              (2011-04-01, 13)
+              (2011-05-01, 29)
+              (2011-06-01, 44)
+              (2011-07-01, 58) }
+
+\begin{document}
+\frontmatter
+
+\section{Minimum example}
+\begin{verbatim}
+\documentclass{sintefstatus}
+\begin{document}
+\frontmatter
+Hello world!
+\end{document}
+\end{verbatim}
+Use \verb|\frontmatter| to set up the first page.
+
+\section{Progress in the last period}
+This new \LaTeX\ class for SINTEF status reports was produced.
+This is also supposed to be compiled with Xe\LaTeX\ or Lua\LaTeX, due to the
+presence of SINTEF font specifications.
+
+Most commands to set the fields in the start page will be shown in the PDF when
+compiling the document without them, so just compile and read if you are not sure.
+
+\section{Deviations from the plan}
+The only non-self-explaining commands are those for the budget plots.
+In order to set the data, you need to use the \verb|\plannedexpenditures| and
+\verb|\accumulatedexpenditures| commands.
+These take a list of coordinates ($x$ for dates, $y$ for \emph{thousands} of
+crowns\footnote{The original Word template used plain crowns, but it looks ugly
+and silly to have so many \texttt{000} on the ordinate axis, plus it is not very
+readable. I will change it back the day someone actually comes to me and proves
+me they have a project with a budget of less than 1000\,crowns.}).
+The data is input as follows:
+\begin{verbatim}
+\plannedexpenditures{
+        (2011-03-01, 10)
+        (2011-04-01, 20)
+        (2011-05-01, 30)
+        (2011-06-01, 40)
+        (2011-07-01, 50)
+        (2011-08-01, 70)
+        (2011-09-01, 75)
+        (2011-10-01, 80) }
+\accumulatedexpenditures{
+            (2011-03-01,  8)
+            (2011-04-01, 13)
+            (2011-05-01, 29)
+            (2011-06-01, 44)
+            (2011-07-01, 58) }
+\end{verbatim}
+There is nothing wrong with putting the data points on the same line inside the
+braces, though I prefer them stacked so I can look them up more easily.
+
+If you need to report your budget progress in another currency, you can use the
+\verb|\currency| command; typically, you will type \verb|\currency{€}|.
+
+\section{Plan for the next period}
+Please report any errors, improvements or suggestions either to me directly or
+on eRoom.
+
+\end{document}

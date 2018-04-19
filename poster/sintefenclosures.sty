@@ -1,0 +1,77 @@
+% Package for to implement enclosures in SINTEF documents.
+%
+% by Federico Zenith, federico.zenith@sintef.no.
+
+\ProvidesPackage{sintefenclosures}[2013/06/17 enclosures in SINTEF documents]
+
+\RequirePackage{sinteflabels}
+
+% Enclosures are a sort of in-line attachments, often used at MARINTEK.
+% They generally contain test results, data dumps, and are different from:
+%  * Appendices, because those contain e.g. background theory or marginal
+%    notes;
+%  * Attachments, because enclosures are part of the document and need to be
+%    cross-referenced and included in the table of contents.
+\newcommand{\enclosures}{%
+  \newcounter{enclosure}
+  \renewcommand\thesection{E-\arabic{enclosure}}
+  \newcommand\@currentenclosure{}
+}
+
+\newcommand{\enclosuretable}[1]{
+    \sffamily
+    \begin{tabular}{ll}
+      \@labeltext\@enclosurelabel & \arabic{section}\\
+      \@labeltext\@reportnumberlabel & \@reportnumber\\
+      \@labeltext\@datelabel & \@date\\
+      \@labeltext\@referencelabel & #1
+    \end{tabular}
+}
+
+\newcommand{\enclosure}[3][\empty]{
+  \clearpage\noindent
+  \begin{minipage}{0.55\textwidth}
+    \stepcounter{enclosure}
+    \section{#2}
+    % Store name in case of subenclosures
+    \gdef\@currentenclosure{#2}
+    % If given, place subenclosure title and section
+    % Also, place label before subsection or it will not be manually referrable
+    \ifstrequal{#1}{\empty}{}{%
+      \label{enc:#2}%
+      \subsection{#1}%
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.35\textwidth}
+    \enclosuretable{#3}
+  \end{minipage}%
+  % The following two lines are to make sure \label and \ref work as they
+  % should, since \section is in a minipage for layout reasons.
+  \addtocounter{section}{-1}%
+  \refstepcounter{section}%
+  % Do the same on a lower lever if a subsection has been requested.
+  \ifstrequal{#1}{\empty}{}{%
+    \refstepcounter{subsection}%
+  }%
+  \vspace{3ex}%
+  \par\noindent%
+}
+
+\newcommand{\subenclosure}[2]{
+  \clearpage\noindent
+  \begin{minipage}{0.55\textwidth}
+    \section*{\thesection\quad\@currentenclosure}
+    \subsection{#1}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.35\textwidth}
+    \enclosuretable{#2}
+  \end{minipage}%
+  % The following two lines are to make sure \label and \ref work as they
+  % should, since \section is in a minipage for layout reasons.
+  \addtocounter{subsection}{-1}%
+  \refstepcounter{subsection}%
+  \vspace{3ex}%
+  \par\noindent%
+}

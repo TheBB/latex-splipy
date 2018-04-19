@@ -1,0 +1,74 @@
+\documentclass{sintefposter}
+
+\usepackage{hyperref,multicol,wrapfig}
+\usepackage{tcolorbox}
+
+\title{The \texttt{sintefposter} class}
+
+\author{Eivind Fonn \\ Kjetil Andre Johannessen }
+
+\institute{SINTEF Digital, Dept. of Mathematics and Cybernetics, Trondheim, Norway}
+
+\email{Eivind.Fonn@sintef.no \\ Kjetil.Johannessen@sintef.no}
+
+\conference{SIN\TeX project}
+
+\begin{document}
+% \leftlogo{testimage.png}
+\maketitle
+
+\begin{multicols}{3}
+\section*{Class Description}
+\begin{tcolorbox}[colback=sinteflightgrey,colframe=sintefblue,title=My nice heading]
+  This is the abstract. It is a pretty good abstract.
+  This class is meant to prepare posters for academic conferences.
+  The class is not particularly original: it is essentially a custom configuration
+  of \texttt{sciposter}.
+\end{tcolorbox}
+This class is meant to prepare posters for academic conferences.
+The class is not particularly original: it is essentially a custom configuration
+of \texttt{sciposter}.
+
+The SINTEF corporate colors are taken from the \texttt{sintefcolor} package,
+which is therefore necessary to have together with this class.
+Because of the requirement of using the Calibri font, \texttt{sintefposter} must
+be compiled with Xe\LaTeX\ or Lua\LaTeX.
+
+\begin{figure}
+  \includegraphics[width=0.8\linewidth]{testimage}
+\end{figure}
+
+The poster title is set to be in SINTEF blue and \verb|\huge| size.
+
+All class options will be passed to \texttt{sciposter}, so you should refer to
+its documentation on CTAN, however some sensible defaults were chosen for you:
+\begin{itemize}
+  \item Font size is set to \texttt{36pt}. The default for \texttt{sciposter} is
+        ludicrously small, unless you have bad results and want no one to read
+        them.
+  \item Sections are a bit more sober than the default in \texttt{sciposter}
+        (\texttt{plainsections} option).
+        If you choose to use the block layout, the colours have already been
+        changed to SINTEF corporate colors.
+  \item The SINTEF logo automatically appears in the left corner.
+        This can be overridden with \verb|\leftlogo{}| or \verb|\noleftlogo|.
+\end{itemize}
+
+\section*{Suggestions \& Links}
+Refer to
+\href{http://mirrors.ctan.org/macros/latex/contrib/sciposter/scipostermanual.pdf}
+{\texttt{sciposter}'s manual} for how to customise the poster layout.
+
+To insert figures with text wrapped around them, use
+\href{http://mirrors.ctan.org/macros/latex/contrib/wrapfig/wrapfig-doc.pdf}{the
+\texttt{wrapfig} package}.
+
+For best results in plots, the
+\href{http://mirrors.ctan.org/graphics/pgf/contrib/pgfplots/doc/latex/pgfplots/pgfplots.pdf}
+{\texttt{pgfplots} package} makes it easy to keep the same font style and size
+in plots as in the text.
+
+\end{multicols}
+
+\end{document}
+

@@ -1,0 +1,42 @@
+\documentclass{sintefsubcontractor}
+
+\subcontractor{SINTEF \LaTeX ers}
+\subcontractorno{$\pi$}
+\projectname{The \texttt{sintefsubcontractor} class}
+\project{Project number SIN\TeX}
+
+\begin{document}
+\frontmatter
+
+\section{Description of the Class}
+This class allows writing contracts with subcontractors according to the
+standard SINTEF template.
+Some commands are defined for the user in order to typeset the document:
+\begin{itemize}
+  \item \verb|\frontmatter| and \verb|\backmatter|, to be used at the
+        beginning and end respectively, to typeset opening and closing
+        of the document;
+  \item \verb|\subcontractor| and \verb|\subcontractorno|, to set the name and
+        the enterprise number of the subcontractor;
+  \item \verb|\unit| and \verb|\unitno|, to set the SINTEF unit and
+        enterprise number, which default respectively to the values
+        set in \texttt{sintefconfig.tex} with \verb|\institute| and
+        \verb|\vat|;
+  \item \verb|\projectname| and \verb|\projectno|, for the project's
+        name and number;
+  \item \verb|\attachments| for the list of eventual attachments.
+\end{itemize}
+
+\section{Standard Sections}
+The SINTEF subcontractor template features several standard sections,
+which can be recalled with the following commands:
+\begin{enumerate}
+  \item \verb|\scopesection|
+  \item \verb|\schedulesection|
+  \item \verb|\reportingsection|
+  \item \verb|\budgetsection|
+  \item \verb|\supplementsection|
+\end{enumerate}
+
+\backmatter
+\end{document}

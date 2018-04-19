@@ -1,0 +1,75 @@
+\documentclass{sintefdoc}
+
+\usepackage{sintefcolor,hyperref}
+
+\title{The \texttt{sintefcolor} Package}
+\author{Federico Zenith}
+
+\newcommand{\testcolor}[1]{\colorbox{#1}{\textcolor{#1}{test}} #1}
+
+\begin{document}
+
+\maketitle
+
+\section*{The SINTEF Corporate Colours}
+This package defines SINTEF's corporate colour palette by means of the
+\texttt{xcolor} package.
+The colours can be used with all the commands of the \texttt{xcolor} package,
+refer to \href{http://mirror.ctan.org/macros/latex/contrib/xcolor/xcolor.pdf}
+{its documentation}.
+
+All colours are defined in the HTML colour model of \texttt{xcolor} as indicated
+in the SINTEF profile manual.
+
+\subsection*{Main Colour}
+The main colour is \texttt{sintefblue}, which should be in the foreground and
+dominating; it is available in 9 standard shades, from full colour towards white,
+and should be used about 60\,\% of the time.
+To obtain shades, use \texttt{xcolor}'s standard blending notation as follows:
+\begin{itemize}
+\item \testcolor{sintefblue}
+\item \testcolor{sintefblue!90!white}
+\item \testcolor{sintefblue!80!white}
+\item \testcolor{sintefblue!70!white}
+\item \testcolor{sintefblue!60!white}
+\item \testcolor{sintefblue!50!white}
+\item \testcolor{sintefblue!40!white}
+\item \testcolor{sintefblue!30!white}
+\item \testcolor{sintefblue!20!white}
+\item \testcolor{sintefblue!10!white}
+\end{itemize}
+The profile manual presents these shades, but does not maintain they are
+exhaustive---only that \texttt{sintefblue} can be shaded.
+
+\subsection*{Contrast Colours}
+Contrast colours are used for graphical items and for highlighting. They are not
+supposed to be shaded, and each should be used about 8\,\% of the time.
+\begin{itemize}
+\item \testcolor{sintefcyan}
+\item \testcolor{sintefmagenta}
+\item \testcolor{sintefgreen}
+\item \testcolor{sintefyellow}
+\end{itemize}
+
+\subsection*{Additional Colours}
+Additional colours are shades of grey, to be used in backgrounds and neutral
+elements. They come in 5 shades towards white, and each should be used about
+4\,\% of the time.
+\begin{itemize}
+\item \testcolor{sintefgrey}
+\item \testcolor{sintefgrey!80!white}
+\item \testcolor{sintefgrey!60!white}
+\item \testcolor{sintefgrey!40!white}
+\item \testcolor{sintefgrey!20!white}
+\item \testcolor{sinteflightgrey}
+\item \testcolor{sinteflightgrey!80!white}
+\item \testcolor{sinteflightgrey!60!white}
+\item \testcolor{sinteflightgrey!40!white}
+\item \testcolor{sinteflightgrey!20!white}
+\end{itemize}
+Again, the profile manual presents these shades, but does not maintain they are
+exhaustive.
+Furthermore, both \texttt{*grey} colours have a corresponding \texttt{*gray}
+identical variant.
+
+\end{document}

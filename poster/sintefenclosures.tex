@@ -1,0 +1,182 @@
+\documentclass[unrestrictedsummary]{sintefreport}
+
+\usepackage{hyperref,sintefenclosures}
+
+\title{Enclosures in the SINTEF \LaTeX Classes}
+\subtitle{The \texttt{sintefenclosures} package}
+\version{1.3}
+\reportnumber{1}
+\author{Federico Zenith}
+\client{MARINTEK}
+\clientref{}
+\project{102004842}
+\attachmentpages{}
+\abstract{Enclosures are added to all SINTEF classes with this package, in a
+way similar to appendices.}
+\prepared{Federico Zenith}
+\checked{N/A}
+\approved{N/A}
+\isbn{N/A}
+\titlefigure{}
+\keywords{\LaTeX\\Enclosures\\Appendices}
+
+\history{
+  \historyentry{1.0}{2013-06-07}{First implementation}
+  \historyentry{1.1}{2013-06-10}{Corrected for \texttt{\textbackslash ref} and
+    \texttt{\textbackslash label}}
+  \historyentry{1.2}{2013-06-10}{Removed from \texttt{sintefdoc} code and made
+    into own package}
+  \historyentry{1.3}{2013-09-10}{Translated to English as package documentation}
+}
+
+\begin{document}
+\frontmatter
+This package was produced after a request from MARINTEK to implement
+``enclosures'', a special type of appendix.
+Yes, for a few hours I was actually paid to develop \LaTeX!
+
+\section{Implementation and usage}
+Enclosures are implemented in a way similar to \verb|\appendix|.
+When you write \verb|\appendix| in \LaTeX\ code, the section counters are reset
+and numbering goes from numbers to letters.
+Then, one can use the normal command \verb|\section| to write appendices.
+
+Similarly, for enclosures, the initial command is \verb|\enclosures|.
+This reset the counters and sets the numbering to the pattern \textsf{E-$n$},
+where $n$ is an arabic number.
+It was briefly considered to use roman numerals, but these are pronounced as
+arabic ones anyway, and some international customers are less used to them than
+others.
+
+An enclosure is added with the command \verb|\enclosure|, which requires two
+arguments: the title and the enclosure reference.
+\begin{verbatim}
+\enclosures
+\enclosure{Title}{Reference}
+\end{verbatim}
+This command starts a new page with title, enclosure numbers, report number and
+date, and reference, as it is the custom at MARINTEK.
+There are no other modifications to the \LaTeX\ coding process.
+
+In the table of contents it was chosen not to add a header for the enclosures,
+as that is not the custom for appendices either.
+
+\subsection{Subenclosures}
+It is possible to have subenclosures to group them.
+If a subenclosure is to be used from the first page off, an optional argument
+can be passed to \verb|\enclosure|:
+\begin{verbatim}
+\enclosure[Subenclosure title]{Enclosure title}{Reference}
+\end{verbatim}
+Note that the optional argument is in brackets [], the others are \{\}.
+
+Later subenclosures are added with the command:
+\begin{verbatim}
+\subenclosure{Subenclosure title}{Reference}
+\end{verbatim}
+
+Whem an enclosure is started with a subenclosure right off the bat, you don't
+get control back before the subenclosure is already started: this is a problem
+when you want to use \verb|\ref| to refer to the whole enclosure instead of the
+just started subenclosure.
+Therefore, a \verb|\label| is automatically defined in these cases to refer to
+the enclosure, with the structure:
+\begin{verbatim}
+\label{enc:Enclosure title}
+\end{verbatim}
+A side effect is that if you change the title, you need to change all
+\verb|\ref|s pointing to it.
+
+\subsection{Norwegian Translations}
+Appendix is automatically translated by Polyglossia as \emph{tillegg}; this
+package translates enclosure as \emph{bilag}.
+
+\subsection{Test}
+These are test references to \ref{enc:1}, \ref{enc:Amet}, \ref{enc:2},
+\ref{app1}, \ref{app2}.
+
+\enclosures
+\enclosure{Dolor}{Sit}
+\label{enc:1}
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+\enclosure[Subamet]{Amet}{Consectur}
+\label{enc:2}
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+\subenclosure{Subamet second}{Consectur}
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+\newpage
+\appendix
+\section{Lorem}
+\label{app1}
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+\section{Ipsum}
+\label{app2}
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+\subsection{Enim}
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+\backmatter
+\end{document}

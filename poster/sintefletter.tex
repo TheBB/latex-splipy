@@ -1,0 +1,40 @@
+\documentclass{sintefletter}
+
+\usepackage{xltxtra}
+
+\recipient{SINTEF Employees\\
+           Trondheim \& Oslo\\
+           NORWAY}
+\project{SIN\TeX}
+\yourref{$-$}
+\ourref{$-$}
+\name{Federico Zenith}
+
+\begin{document}
+\frontmatter
+Dear all,
+
+Here is the \texttt{sintefletter} class. This class allows you
+to write letters in the SINTEF reference template from \LaTeX\ with
+minimal effort.
+
+The class inherits from the generic \texttt{sintefdoc}; see its
+documentation for language and custom-data settings.
+
+To set up the headings, insert the command \verb|\frontmatter|
+right after \verb|\begin{document}|.
+
+Some commands are available to set the fields in the first page's
+header:
+\begin{description}
+\item[\texttt{\textbackslash recipient}] the recipient's address;
+\item[\texttt{\textbackslash yourref}] the recipient's reference;
+\item[\texttt{\textbackslash ourref}] SINTEF's reference;
+\item[\texttt{\textbackslash project}] SINTEF's project code.
+\end{description}
+
+The date is set with the standard \verb|\date| command.
+
+\closing{Best regards}
+
+\end{document}
