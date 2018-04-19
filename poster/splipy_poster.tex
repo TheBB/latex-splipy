@@ -81,46 +81,40 @@ The class follows a quite simple structure with a Curve, Surface and Volume clas
 
 \section{Examples}
 
-\begin{tcolorbox}[colback=white,colframe=sintefblue,title=Airfoil meshing]
-  \begin{figure}[ht]
-    \begin{center}
-      \includegraphics[width=0.24\textwidth]{Figures/tfi-1}
-      \includegraphics[width=0.24\textwidth]{Figures/tfi-2}
-      \includegraphics[width=0.24\textwidth]{Figures/tfi-3}
-      \includegraphics[width=0.24\textwidth]{Figures/tfi-4} \\
-      \normalsize{
-        Fig 3: Line-to-surface construction of ``O-mesh'' around an airfoil.
-      }
-    \end{center}
-  \end{figure}
-\end{tcolorbox}
-\begin{tcolorbox}[colback=white,colframe=sintefblue,title=Wingtip meshing]
-  \begin{figure}[ht]
-    \begin{center}
-      \includegraphics[width=0.24\textwidth]{Figures/wingtip-first}
-      \includegraphics[width=0.24\textwidth]{Figures/wingtip-centers}
-      \includegraphics[width=0.24\textwidth]{Figures/wingtip-flower} \\
-      \normalsize{
-        Fig 4: Line-to-surface construction of ``flower mesh'' around a wingtip.
-      }
-    \end{center}
-  \end{figure}
-\end{tcolorbox}
-\begin{tcolorbox}[colback=white,colframe=sintefblue,title=Windturbine blade]
-  \begin{figure}[ht]
-    \begin{center}
-      \raisebox{1.3cm}{\includegraphics[width=0.32\textwidth]{Figures/cross-airfoils}}
-      \raisebox{0.4cm}{\includegraphics[width=0.32\textwidth]{Figures/crossecs2}}
-      \includegraphics[width=0.32\textwidth]{Figures/block-2} \\
-      \normalsize{
-        Fig 5: Line-to-surface construction of ``flower mesh'' around a wingtip.
-      }
-    \end{center}
-  \end{figure}
-\end{tcolorbox}
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=0.24\textwidth]{Figures/tfi-1}
+    \includegraphics[width=0.24\textwidth]{Figures/tfi-2}
+    \includegraphics[width=0.24\textwidth]{Figures/tfi-3}
+    \includegraphics[width=0.24\textwidth]{Figures/tfi-4} \\
+    \small{
+      Fig 3: Line-to-surface construction of ``O-mesh'' around an airfoil.
+    }
+  \end{center}
+\end{figure}
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=0.32\textwidth]{Figures/wingtip-first}
+    \includegraphics[width=0.32\textwidth]{Figures/wingtip-centers}
+    \includegraphics[width=0.32\textwidth]{Figures/wingtip-flower} \\
+    \small{
+      Fig 4: Line-to-surface construction of a ``flower mesh'' around a wingtip.
+    }
+  \end{center}
+\end{figure}
+\begin{figure}[ht]
+  \begin{center}
+    \raisebox{1.3cm}{\includegraphics[width=0.32\textwidth]{Figures/cross-airfoils}}
+    \raisebox{0.4cm}{\includegraphics[width=0.32\textwidth]{Figures/crossecs2}}
+    \includegraphics[width=0.32\textwidth]{Figures/block-2} \\
+    \small{
+      Fig 5: Line-to-volume construction of a full wind-turbine blade mesh.
+    }
+  \end{center}
+\end{figure}
 
 \begin{tcolorbox}[colback=white,colframe=sintefblue,title=Integration with Nutils]
-  The package contains functions for converting to nutils
+  The package contains functions for converting to Nutils objects.
   \begin{tcolorbox}[colback=sinteflightgrey]
   \begin{Verbatim}[fontsize=\footnotesize]
 from splipy import *
@@ -135,8 +129,10 @@ ns.phi = domain.basis('spline', degree=2)
 A = domain.integrate(ns.eval_ij('phi_i,k phi_j,k'), degree=3)
 b = domain.integrate(ns.eval_i('phi_i sin(7 x_0)'), degree=3)
 cons = domain.boundary.project(0, ns.phi, ns.x,     degree=3)
-ns.w = A.solve(b, constrain=cons)\end{Verbatim}
+ns.w = A.solve(b, constrain=cons)
+\end{Verbatim}
   \end{tcolorbox}
+  \vspace{-1cm}
   \begin{figure}
     \begin{center}
       \includegraphics[width=0.24\textwidth]{nutilssolution}
