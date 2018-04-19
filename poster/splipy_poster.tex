@@ -16,11 +16,11 @@
 \graphicspath{{.}{Figures/}}
 
 \begin{document}
-% \leftlogo{testimage.png}
+\leftlogo{splipylogo}
 \maketitle
 
 \begin{multicols}{3}
-\section*{Introduction}
+\section{Introduction}
 \begin{tcolorbox}[colback=sintefblue!10!white,colframe=sintefblue,title=Abstract]
   Splipy is a pure python library for the creation, evaluation and manipulation of B-spline and NURBS geometries.
   It supports $n$-variate splines of any dimension, but emphasis is made on the use of curves, surfaces and volumes.
@@ -58,18 +58,29 @@ Given a knot vector of nondecreasing knots $\Xi=[\xi_1, \xi_2, \xi_3, ... \xi_{n
   \end{equation}
 \end{tcolorbox}
 
-\section{Bi- and trivariate Splines}
-By creating a tensor product of two or three univariate splines, we are able to create surface and solid representations, i.e.
+By creating a tensor product of two or three univariate splines weighted by their controlpoints $\mathbf{B}_{i,j}$, we are able to create surface and solid representations, i.e.
 \begin{equation}
   \mathbf{F}(\xi,\eta) = \sum_{i=1}^n \sum_{j=1}^n \mathbf{B}_{i,j} N_{i,p}(\xi)N_{j,q}(\eta)
 \end{equation}
 for bivariate surfaces.
-This allows us to generate mappings from the reference coordinates $(\xi,\eta,\zeta)$ which forms a regular rectangle or box into a complex geometry in physical space given by $(x,y,z)$-coordinates.
+
 \begin{center}
   \includegraphics[width=16cm]{pawn-mapping}
   \includegraphics[height=5cm]{MappingQR} \\
   \normalsize{Fig 1: A trivariate NURBS solid mapping}
 \end{center}
+
+\section{Structure}
+
+The class follows a quite simple structure with a Curve, Surface and Volume class which all inherit from a parent SplineObject class. Corresponding to each of these primtitives, we collect a number of generative methods in so-called factory classes.
+
+\begin{center}
+  \includegraphics[width=0.7\linewidth]{classstructure} \\
+  \normalsize{Fig 2: Primary classes}
+\end{center}
+
+\section{Examples}
+This allows us to generate mappings from the reference coordinates $(\xi,\eta,\zeta)$ which forms a regular rectangle or box into a complex geometry in physical space given by $(x,y,z)$-coordinates.
 
 \vspace{1cm}
 
@@ -100,7 +111,7 @@ u = A.solve() \end{verbatim}
   \end{tcolorbox}
   \begin{figure}
     \begin{center}
-      \includegraphics[width=0.4\linewidth]{left.png} \\
+      \includegraphics[width=0.4\linewidth]{right.png} \\
       See also: the stand on nutils
     \end{center}
   \end{figure}
@@ -108,35 +119,16 @@ u = A.solve() \end{verbatim}
 See more details on the nutils package
 
 
-The poster title is set to be in SINTEF blue and \verb|\huge| size.
+\section{Conclusion}
 
-All class options will be passed to \texttt{sciposter}, so you should refer to
-its documentation on CTAN, however some sensible defaults were chosen for you:
-\begin{itemize}
-  \item Font size is set to \texttt{36pt}. The default for \texttt{sciposter} is
-        ludicrously small, unless you have bad results and want no one to read
-        them.
-  \item Sections are a bit more sober than the default in \texttt{sciposter}
-        (\texttt{plainsections} option).
-        If you choose to use the block layout, the colours have already been
-        changed to SINTEF corporate colors.
-  \item The SINTEF logo automatically appears in the left corner.
-        This can be overridden with \verb|\leftlogo{}| or \verb|\noleftlogo|.
-\end{itemize}
+Write som summary things here.
+Maybe even box it all in.
 
-\section*{Suggestions \& Links}
-Refer to
-\href{http://mirrors.ctan.org/macros/latex/contrib/sciposter/scipostermanual.pdf}
-{\texttt{sciposter}'s manual} for how to customise the poster layout.
-
-To insert figures with text wrapped around them, use
-\href{http://mirrors.ctan.org/macros/latex/contrib/wrapfig/wrapfig-doc.pdf}{the
-\texttt{wrapfig} package}.
-
-For best results in plots, the
-\href{http://mirrors.ctan.org/graphics/pgf/contrib/pgfplots/doc/latex/pgfplots/pgfplots.pdf}
-{\texttt{pgfplots} package} makes it easy to keep the same font style and size
-in plots as in the text.
+{\small \textbf{Disclaimer:}
+Splipy does not contain a graphical user interface.
+All figures produced on this poster have been created using 3rd party visualizers.
+Splipy is to be considered an API ready to be integrated into other custom applications.
+}
 
 \end{multicols}
 
