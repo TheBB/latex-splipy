@@ -222,9 +222,28 @@ A cubical topology to the volumetric sphere  \cite{cobb1988tts}
 \section{Illustrative Examples}
 \label{}
 
-Provide at least one illustrative example to demonstrate the major functions.
+The following describes in brief detail the meshing of a NREL 5MW reference wind turbine blade \cite{Jonkman2009drw}.
+The blade is defined as a collection airfoils placed at increasing distance form the origin.
+Each airfoil has a certain shape (most of them being NACA or DU standardized airfoils), size and angle of attack.
+Splipy's cubic spline curve interpolation routines make it easy to describe each airfoil as a periodic spline object with consistent discretization (that is, equal knot vectors), whereupon the whole blade can be lofted in one operation, see Figure~\ref{fig:airfoils} (left) and (CITATION NEEDED).
 
-Optional: you may include one explanatory video that will appear next to your article, in the right hand side panel. (Please upload any video as a single supplementary file with your article. Only one MP4 formatted, with 50MB maximum size, video is possible per article. Recommended video dimensions are 640 x 480 at a maximum of 30 frames/second. Prior to submission please test and validate your .mp4 file at $ http://elsevier-apps.sciverse.com/GadgetVideoPodcastPlayerWeb/verification$. This tool will display your video exactly in the same way as it will appear on ScienceDirect.).
+Since the objective of the exercise is to perform simulations of airfoil around the blade, it is also necessary to create a volumetric mesh surrounding the blade.
+At each airfoil, a cylindrical curve is generated at a certain constant radius, again with the same consistent discretization as the airfoils.
+The surface between the airfoil and the cylinder is then mapped using a technique known as \emph{orthogonal transfinite interpolation}, see \cite{Fonn2015sbm} for details.
+The ``front curve'' of the airfoil is at each stage mapped orthogonally out onto the next stage, and then smoothed, see Figure~\ref{fig:airfoils} (right).
+The final surface object is then the result of lofting each of these stages together, and the complete volumetric mesh is similarly created from the lofting of all the surfaces.
+
+This method illustrates the standard strategy of building geometry ``dimension by dimension'', from curves via surfaces to volumes.
+Splipy's curve manipulation functions make it easy to implement this rather involved algorithm in a robust and clear manner.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=.4\textwidth]{figs/airfoils}
+    \includegraphics[width=.5\textwidth]{figs/crossecs2}
+  \end{center}
+  \caption{Airfoil cross-sections of an NREL 5MW reference wind turbine blade.}
+  \label{fig:airfoils}
+\end{figure}
 
 \section{Impact}
 \label{}
