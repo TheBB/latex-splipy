@@ -1,19 +1,19 @@
-%% 
+%%
 %% Copyright 2007, 2008, 2009 Elsevier Ltd
-%% 
+%%
 %% This file is part of the 'Elsarticle Bundle'.
 %% ---------------------------------------------
-%% 
+%%
 %% It may be distributed under the conditions of the LaTeX Project Public
 %% License, either version 1.2 of this license or (at your option) any
 %% later version.  The latest version of this license is in
 %%    http://www.latex-project.org/lppl.txt
 %% and version 1.2 or later is part of all distributions of LaTeX
 %% version 1999/12/01 or later.
-%% 
+%%
 %% The list of all files belonging to the 'Elsarticle Bundle' is
 %% given in the file `manifest.txt'.
-%% 
+%%
 
 %% Template article for Elsevier's document class `elsarticle'
 %% with numbered style bibliographic references
@@ -38,6 +38,7 @@
 %% for the whole article with \linenumbers.
 \usepackage{lineno}
 
+\usepackage{enumitem}
 \usepackage{bm}
 \usepackage{tikz}
 \usetikzlibrary{positioning,shapes,arrows,calc,intersections}
@@ -201,11 +202,65 @@ Generally Splipy scripts follow a bottom-up construction scheme where curves are
 \subsection{Software Functionalities}
 \label{}
 
-In addition to elementary objects such as line, circle, disc, sphere, torus, cylinder and teapots, the factory classes contain spline-related constructors such as interpolation, least-square fit and lofting.
-Of the more complex methods we draw special attention to \texttt{curve\_factory.fit(...)}.
+The library allows for rapid creation of elementary mathematical constructs such as line, circle, disc, sphere, torus, cylinder and teapots.
+For sphere geometries (univariate, bivariate and trivariate), multiple discretizations are avilable.
+The factory classes also contain spline-related constructors, such as \\
+\textbf{Curve Factories}
+\begin{itemize}
+    \setlength\itemsep{-.5em}
+    \item Bezier curves
+    \item Hermite Interpolation
+    \item Cubic Curve Interpolation
+    \item B-spline Interpolation
+    \item Least Square Fit
+    \item Adaptive Curve Fit
+\end{itemize}
+\textbf{Surface Factories}
+\begin{itemize}
+    \setlength\itemsep{-.5em}
+    \item Sweep
+    \item Revolve
+    \item Loft
+    \item Extrude
+    \item Interpolation
+    \item Least Square Fit
+    \item Edge Curves (interior from four edges)
+\end{itemize}
+\textbf{Volume operations}
+\begin{itemize}
+    \setlength\itemsep{-.5em}
+    \item Revolve
+    \item Extrude
+    \item Loft
+    \item Interpolation
+    \item Least Square Fit
+\end{itemize}
 
-\subsubsection{Curve fitting}
+\subsubsection{Adaptive Curve fitting}
 \label{}
+For parametric representation of some target curve $x(t)$ we provide a \texttt{fit} function in \texttt{curve\_factory} which employs a posteriori error estimation to provide a best fit $x_h(t)$ to the curve.
+It is a four-stage iterative algorithm which works as follows:
+Start with a uniform knot vector; for release 1.3 this knot vector is cubic and contains 10  basis functions.
+\\ \textbf{step 1:}
+Compute the Greville abscisscae $t^*_i = \sum_{j=i}^{i+p} k_j$ and interpolate on these points $x(t_i^*) = x_h(t_i^*)$.
+\\ \textbf{step 2:}
+Compute the error $\|x(t)-x_h(t)\|_{L^2(k_i,k_{i+1})}$ for all knot spans $(k_i,k_{i+1})$
+\\ \textbf{step 3:}
+For all knot spans $(k_i,k_{i+1})$, compute the expected error $\varepsilon_i$ and interpolation error $\varepsilon_{h,i}$ defined as
+\begin{eqnarray}
+    \varepsilon_i     & = & \frac{k_{i+1} - k_i}{k_n - k_0}\varepsilon \\
+    \varepsilon_{h,i} & = & \int_{k_i}^{k_{i+1}} x(t) - x_h(t)\quad dt
+\end{eqnarray}
+where $\varepsilon$ is some user-defined global tolerance
+\\ \textbf{step 4:}
+Since we know that our approximation (INSERT CITATION) to converge wrt the knot span size $h=k_{i+1}-k_i$ as $\|x(t)-x_h(t)\|_{L^2} = \mathcal{O}(h^{p+1})$ with $p$ our spline degree, we expect that inserting
+\begin{equation}
+    n = 2^{-(p+1)}\frac{\varepsilon_{h,i}}{\varepsilon_i}
+\end{equation}
+new knots will give us the target error.
+These knots are then inserted into their relevant knot span and a new interpolation is computed.
+
+These iterations are carried out until the global tolerance is achieved.
 
 \subsubsection{Interior from edges}
 \label{}
@@ -247,6 +302,17 @@ Splipy's curve manipulation functions make it easy to implement this rather invo
 
 \section{Impact}
 \label{}
+
+Isogeometric analysis was introduced in 2005 \cite{hughes2005iac} for applying native B-spline basis functions for both the geometry and finite element solution.
+One of the limiting factors of this endeavor has been that there have been sparse support for high quality B-spline mesh generation.
+Traditional meshing tools used for finite element technologies typically produce Lagrangian piecewise linear simplexes such as tetrahedrons.
+More commercial software produce ``dirty'' geometries containing gaps, overlaps and non-matching interfaces.
+
+We hope that by this package allows researchers and engineers, especially in the isogeometric community, to consider more complex geometries.
+
+While the package is a library and does not contain a dedicated user-interface, one should be able to create a CAD interface on top of it.
+We note that of particular interest is FreeCAD, which is an open source CAD software and supports python plugins.
+It would not be unreasonable to see a FreeCAD plugin of splipy that would greatly increase its utility and user-friendliness.
 
 \textbf{This is the main section of the article and the reviewers weight the description here appropriately}
 
