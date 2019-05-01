@@ -70,7 +70,7 @@
 %% \address{Address\fnref{label3}}
 %% \fntext[label3]{}
 
-\title{Splipy}
+\title{Splipy: B-Spline and NURBS Modelling in Python}
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{}
@@ -80,7 +80,10 @@
 \author{K.~A.~Johannessen}
 \author{E.~Fonn}
 
-\address{SINTEF Digital, PO Box 4760, 7465, Trondheim, Norway}
+\address{SINTEF Digital, PO Box 4760, 7465, Trondheim, Norway\\
+         Kjetil.Johannessen@sintef.no \\
+         Eivind.Fonn@sintef.no
+         }
 
 \begin{abstract}
 %% Text of abstract (Ca 100 words)
@@ -159,8 +162,9 @@ and a \emph{spline object} is nothing more than a function in the span of this b
 \end{equation}
 Here, the coefficients $\bm c_{j_1, \ldots, j_n} \in \mathbb{R}^d$ are termed \emph{control points}.
 
-Splipy is concerned with the creation and manipulation of these mappings and the objects they represent (that is, the image of $\mathcal{P}$ by $s$ in $\mathbb{R^d}$).
-Since the objective is analysis, and since the smoothness properties of the basis functions depend crucially on the knot vector, and since the element sizes and shapes depend crucially on the control points, fine control over these quantities are important.
+Splipy is concerned with the creation and manipulation of these mappings and the objects they represent (that is, the image of $\mathcal{P}$ by $s$ in $\mathbb{R}^d$).
+With the intended emphasize on analysis: fine control over both the knot vectors and control points are provided.
+These quantities dictates the properties of the parametric representation and the geometric mapping respectively.
 
 \subsection{Software Architecture}
 \label{sec:architecture}
@@ -168,7 +172,7 @@ Since the objective is analysis, and since the smoothness properties of the basi
 There are three main classes which are exposed to the user: \texttt{Curve}, \texttt{Surface} and \texttt{Volume}.
 All inherit from the \texttt{SplineObject} superclass, which contains common methods such as affine transformations, evaluation and get methods.
 See Figure~\ref{fig:hierarchy}.
-It is possible to create such spline objects manually, by specifying knot vectors and control points, however most users will be using a wide range of ``factory'' functions for creating simple geometries.
+It is possible to create such spline objects manually, by specifying knot vectors and control points, however most users will be using a wide range of ``factory'' functions.
 These can be found in the submodules \texttt{curve\_factory}, \texttt{surface\_factory} and \texttt{volume\_factory}.
 More advanced geometries can then be created by using the rich interface for manipulating spline objects.
 Generally Splipy scripts follow a bottom-up construction scheme where curves are created from points, surfaces are created from curves and finally volumes are created from the surfaces.
@@ -196,15 +200,16 @@ Generally Splipy scripts follow a bottom-up construction scheme where curves are
       \draw[->, densely dashed] ([xshift=-1cm]hasa.west) -- (hasa.west);
     \end{tikzpicture}
   \end{center}
-  \label{fig:hierarchy}
   \caption{Class hierarchy of Splipy.}
+  \label{fig:hierarchy}
 \end{figure}
 
 \subsection{Software Functionalities}
-\label{}
+\label{sec:functionality}
 
 The library allows for rapid creation of elementary mathematical constructs such as line, circle, disc, sphere, torus, cylinder and teapots.
-For sphere geometries (univariate, bivariate and trivariate), multiple discretizations are avilable.
+For sphere geometries (univariate, bivariate and trivariate), multiple discretizations are available.
+(INCLUDE RADIAL/SQUARE DISC FIGURE)
 The factory classes also contain spline-related constructors, such as \\
 \textbf{Curve Factories}
 \begin{itemize}
@@ -251,9 +256,9 @@ The factory classes also contain spline-related constructors, such as \\
     \hspace{.02\linewidth}
     \subfloat[\textbf{Loft:} interpolates a given set of curves]{
       \label{fig:loft}
-      \includegraphics[height=.28\textwidth]{figs/loft}
+      \includegraphics[height=.28\textwidth]{figs/loft2}
     }
-    \caption{\textbf{surface\_factory:} splipy follows a bottom-up design principle where surfaces tyically are constructed from defining curves}
+    \caption{\textbf{surface\_factory:} splipy follows a bottom-up design principle where surfaces typically are constructed from defining curves}
   \end{center}
 \end{figure}
 
@@ -272,11 +277,13 @@ The factory classes also contain spline-related constructors, such as \\
 %   \end{center}
 % \end{figure}
 
+We now elaborate on a few selected functions.
+
 \subsubsection{Adaptive Curve fitting}
-\label{}
+\label{sec:adaptive-curve-fit}
 For parametric representation of some target curve $x(t)$ we provide a \texttt{fit} function in \texttt{curve\_factory} which employs a posteriori error estimation to provide a best fit $x_h(t)$ to the curve.
 It is a four-stage iterative algorithm which works as follows:
-Start with a uniform knot vector; for release 1.3 this knot vector is cubic and contains 10  basis functions.
+Start with a uniform knot vector; for the current release this knot vector is cubic and contains 10  basis functions.
 \\ \textbf{step 1:}
 Compute the Greville abscisscae $t^*_i = \sum_{j=i}^{i+p} k_j$ and interpolate on these points $x(t_i^*) = x_h(t_i^*)$.
 \\ \textbf{step 2:}
@@ -299,21 +306,29 @@ These knots are then inserted into their relevant knot span and a new interpolat
 These iterations are carried out until the global tolerance is achieved.
 
 \subsubsection{Interior from edges}
-\label{}
+\label{sec:interior-from-edges}
 
-Present the major functionalities of the software.
+\subsubsection{Sphere parametrization}
+\label{sec:sphere}
+It is well known that perfect circles cannot be represented as B-splines, but can be represented as non-uniform rational B-splines (NURBS).
+However, there is multiple ways of parametrizing the circle and its surface and volume equivalent.
+In particular, we can do a polar parametrization which would include a geometric singularity point at the origin, or one might do what is dubbed a ``square'' parametrization which computes the interior of the four edge curves given by 4 circle segments.
+These can be seen in Figure~\ref{fig:surface-disc} along with a hybrid parametrization which uses 5 different patches.
+Note that the square parametrization, have a singular Jacobian at its four corners, where the isocurves in both parametric directions are parallel.
+Depending on where you would need optimal parametrization: the origin or the outer boundary, one might chose one or the other parametrization.
 
-NACA wing profile is created in accordance with \cite{abbott1959tow}
-
-A cubical topology to the volumetric sphere  \cite{cobb1988tts}
+The volumetric parametrization of the sphere, does also have a ``square'' version which avoids the north- and south-pole singularity given by a spherical coordinate parametrization.
+For details on the derivation of this particular parametrization, see Cobb \cite{cobb1988tts}.
+These are shown in Figure~\ref{fig:volume-disc}
 
 \subsection{Sample code snippets analysis (optional)}
 \label{}
 
 \section{Illustrative Examples}
-\label{}
+\label{sec:naca}
 
 The following describes in brief detail the meshing of a NREL 5MW reference wind turbine blade \cite{Jonkman2009drw}.
+NACA wing profile is created in accordance with \cite{abbott1959tow}
 The blade is defined as a collection airfoils placed at increasing distance form the origin.
 Each airfoil has a certain shape (most of them being NACA or DU standardized airfoils), size and angle of attack.
 Splipy's cubic spline curve interpolation routines make it easy to describe each airfoil as a periodic spline object with consistent discretization (that is, equal knot vectors), whereupon the whole blade can be lofted in one operation, see Figure~\ref{fig:airfoils} (left) and (CITATION NEEDED).
@@ -337,35 +352,35 @@ Splipy's curve manipulation functions make it easy to implement this rather invo
 \end{figure}
 
 \section{Impact}
-\label{}
+\label{sec:impact}
 
 Isogeometric analysis was introduced in 2005 \cite{hughes2005iac} for applying native B-spline basis functions for both the geometry and finite element solution.
 One of the limiting factors of this endeavor has been that there have been sparse support for high quality B-spline mesh generation.
 Traditional meshing tools used for finite element technologies typically produce Lagrangian piecewise linear simplexes such as tetrahedrons.
-More commercial software produce ``dirty'' geometries containing gaps, overlaps and non-matching interfaces.
+Commercial software typically allow the user to create low-quality geometries containing gaps, overlaps and non-matching interfaces.
+These are often referred to as ``dirty'' geometries by the industry, and while it is possible to create analysis suitable meshes, the process is currently tedious and time-consuming.
 
 We hope that by this package allows researchers and engineers, especially in the isogeometric community, to consider more complex geometries.
 
-While the package is a library and does not contain a dedicated user-interface, one should be able to create a CAD interface on top of it.
+While the package is a library and does not contain a dedicated graphical user interface (GUI), one should be able to create a CAD interface on top of it.
 We note that of particular interest is FreeCAD, which is an open source CAD software and supports python plugins.
 It would not be unreasonable to see a FreeCAD plugin of splipy that would greatly increase its utility and user-friendliness.
 
 \textbf{This is the main section of the article and the reviewers weight the description here appropriately}
-
-Indicate in what way new research questions can be pursued as a result of the software (if any).
-
-Indicate in what way, and to what extent, the pursuit of existing research questions is improved (if so).
-
-Indicate in what way the software has changed the daily practice of its users (if so).
-
-Indicate how widespread the use of the software is within and outside the intended user group.
-
-Indicate in what way the software is used in commercial settings and/or how it led to the creation of spin-off companies (if so).
+\begin{itemize}
+  \item Indicate in what way new research questions can be pursued as a result of the software (if any).
+  \item Indicate in what way, and to what extent, the pursuit of existing research questions is improved (if so).
+  \item Indicate in what way the software has changed the daily practice of its users (if so).
+  \item Indicate how widespread the use of the software is within and outside the intended user group.
+  \item Indicate in what way the software is used in commercial settings and/or how it led to the creation of spin-off companies (if so).
+\end{itemize}
 
 \section{Conclusions}
-\label{}
+\label{sec:conclusion}
 
-Set out the conclusion of this original software publication.
+Splipy is a python programming library which empowers users to work with B-spline and NURBS representations of geometries.
+It will lower the barrier of entry to create complex geometric shapes.
+It allows for fine-grained control over parametrizations to ensure high-quality meshes which are tailored specifically for analysis.
 
 \section*{Acknowledgements}
 \label{}
