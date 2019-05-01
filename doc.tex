@@ -113,7 +113,7 @@ NURBS \sep B-splines \sep CAD \sep Interpolation \sep Approximation
 \section{Motivation and significance}
 \label{sec:motivation}
 
-Non-uniform rational B-splines (NURBS) have been a staple technology in \emph{computer aided design} (CAD) for many decades (CITATION NEEDED).
+Non-uniform rational B-splines (NURBS) have been a staple technology in \emph{computer aided design} (CAD) for many decades.
 Their mathematical precision allows the user to create smooth parametric descriptions of curves and surfaces, which is necessary in many engineering applications.
 Recent years has seen an increased interest in the use of B-splines and NURBS directly in high-fidelity physics simulations such as the finite element method, thereby uniting geometric modelling and analysis.
 The groundbreaking work for these methods, termed \emph{isogeometric analysis} (IGA) can be found in \cite{hughes2005iac}.
@@ -208,8 +208,8 @@ Generally Splipy scripts follow a bottom-up construction scheme where curves are
 \label{sec:functionality}
 
 The library allows for rapid creation of elementary mathematical constructs such as line, circle, disc, sphere, torus, cylinder and teapots.
-For sphere geometries (univariate, bivariate and trivariate), multiple discretizations are available.
-(INCLUDE RADIAL/SQUARE DISC FIGURE)
+Some of these have multiple parametrization options, such as disc or sphere, see section~\ref{sec:sphere}.
+
 The factory classes also contain spline-related constructors, such as \\
 \textbf{Curve Factories}
 \begin{itemize}
@@ -296,7 +296,7 @@ For all knot spans $(k_i,k_{i+1})$, compute the expected error $\varepsilon_i$ a
 \end{eqnarray}
 where $\varepsilon$ is some user-defined global tolerance
 \\ \textbf{step 4:}
-Since we know that our approximation (INSERT CITATION) to converge wrt the knot span size $h=k_{i+1}-k_i$ as $\|x(t)-x_h(t)\|_{L^2} = \mathcal{O}(h^{p+1})$ with $p$ our spline degree, we expect that inserting
+Since we know that our approximation \cite{deboor1978apg} to converge wrt the knot span size $h=k_{i+1}-k_i$ as $\|x(t)-x_h(t)\|_{L^2} = \mathcal{O}(h^{p+1})$ with $p$ our spline degree, we expect that inserting
 \begin{equation}
     n = 2^{-(p+1)}\frac{\varepsilon_{h,i}}{\varepsilon_i}
 \end{equation}
@@ -316,6 +316,27 @@ In particular, we can do a polar parametrization which would include a geometric
 These can be seen in Figure~\ref{fig:surface-disc} along with a hybrid parametrization which uses 5 different patches.
 Note that the square parametrization, have a singular Jacobian at its four corners, where the isocurves in both parametric directions are parallel.
 Depending on where you would need optimal parametrization: the origin or the outer boundary, one might chose one or the other parametrization.
+
+\begin{figure}
+  \begin{center}
+    \subfloat[\textbf{Radial:} or polar parametrization]{
+      \label{fig:disc-radial}
+      \includegraphics[height=.28\textwidth]{figs/disc-radial}
+    }
+    \hspace{.02\linewidth}
+    \subfloat[\textbf{Square:} parametrization with 4 corners]{
+      \label{fig:disc-square}
+      \includegraphics[height=.28\textwidth]{figs/disc-square}
+    }
+    \hspace{.02\linewidth}
+    \subfloat[\textbf{Hybrid:} 5 different patches]{
+      \label{fig:disc-5patch}
+      \includegraphics[height=.28\textwidth]{figs/disc-5patch}
+    }
+    \caption{\textbf{disc:} multiple discretization options for the same geometry is provided. Here we show three different versions of the disc $\|\mathbf{x}\|^2<1$, each with different benifits. In particular, the vanishing jacobian can be located at the domain center, boundary or interior respectively, depending on the particular needs of the application}
+    \label{fig:surface-disc}
+  \end{center}
+\end{figure}
 
 The volumetric parametrization of the sphere, does also have a ``square'' version which avoids the north- and south-pole singularity given by a spherical coordinate parametrization.
 For details on the derivation of this particular parametrization, see Cobb \cite{cobb1988tts}.
@@ -366,14 +387,14 @@ While the package is a library and does not contain a dedicated graphical user i
 We note that of particular interest is FreeCAD, which is an open source CAD software and supports python plugins.
 It would not be unreasonable to see a FreeCAD plugin of splipy that would greatly increase its utility and user-friendliness.
 
-\textbf{This is the main section of the article and the reviewers weight the description here appropriately}
-\begin{itemize}
-  \item Indicate in what way new research questions can be pursued as a result of the software (if any).
-  \item Indicate in what way, and to what extent, the pursuit of existing research questions is improved (if so).
-  \item Indicate in what way the software has changed the daily practice of its users (if so).
-  \item Indicate how widespread the use of the software is within and outside the intended user group.
-  \item Indicate in what way the software is used in commercial settings and/or how it led to the creation of spin-off companies (if so).
-\end{itemize}
+% \textbf{This is the main section of the article and the reviewers weight the description here appropriately}
+% \begin{itemize}
+%   \item Indicate in what way new research questions can be pursued as a result of the software (if any).
+%   \item Indicate in what way, and to what extent, the pursuit of existing research questions is improved (if so).
+%   \item Indicate in what way the software has changed the daily practice of its users (if so).
+%   \item Indicate how widespread the use of the software is within and outside the intended user group.
+%   \item Indicate in what way the software is used in commercial settings and/or how it led to the creation of spin-off companies (if so).
+% \end{itemize}
 
 \section{Conclusions}
 \label{sec:conclusion}
@@ -385,7 +406,7 @@ It allows for fine-grained control over parametrizations to ensure high-quality 
 \section*{Acknowledgements}
 \label{}
 
-Optionally thank people and institutes you need to acknowledge. 
+The authors gratefully acknowledge the the financial support from the Norwegian Research Council and the FME NOWITECH (www.nowitech.no). They also acknowledge the support from the Norwegian University of Science and Technology.
 
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
@@ -413,22 +434,22 @@ Optionally thank people and institutes you need to acknowledge.
 
 %% \end{thebibliography}
 
-\section*{Required Metadata}
-\label{}
+% \section*{Required Metadata}
+% \label{}
 
 \section*{Current code version}
 \label{}
 
-Ancillary data table required for subversion of the codebase. Kindly replace examples in right column with the correct information about your current code, and leave the left column as it is.
+% Ancillary data table required for subversion of the codebase. Kindly replace examples in right column with the correct information about your current code, and leave the left column as it is.
 
 \begin{table}[!h]
-\begin{tabular}{|l|p{6.5cm}|p{6.5cm}|}
+\begin{tabular}{|l|p{5.5cm}|p{7.5cm}|}
 \hline
 \textbf{Nr.} & \textbf{Code metadata description} & \textbf{Please fill in this column} \\
 \hline
 C1 & Current code version & 1.3 \\
 \hline
-C2 & Permanent link to code/repository used for this code version & $github.com/sintefmath/splipy$ \\
+C2 & Permanent link to code/repository used for this code version & $https://github.com/sintefmath/splipy$ \\
 \hline
 C3 & Legal Code License   & GNU General Public License v3.0  \\
 \hline
@@ -436,21 +457,22 @@ C4 & Code versioning system used & git \\
 \hline
 C5 & Software code languages, tools, and services used & python \\
 \hline
-C6 & Compilation requirements, operating environments \& numpy $\geq$ 1.9, scipy $\geq$ 0.17 \\
+C6 & Compilation requirements, operating environments & numpy $\geq$ 1.15, scipy $\geq$ 1.2 \\
 \hline
-C7 & If available Link to developer documentation/manual & $sintefmath.github.io/Splipy/$ \\
+C7 & If available Link to developer documentation/manual & $https://sintefmath.github.io/Splipy/$ \\
 \hline
 C8 & Support email for questions & Kjetil.Johannessen@sintef.no \\
 \hline
 \end{tabular}
 \caption{Code metadata (mandatory)}
-\label{} 
+\label{}
 \end{table}
 
-\section*{Current executable software version}
-\label{}
-
-Ancillary data table required for sub version of the executable software: (x.1, x.2 etc.) kindly replace examples in right column with the correct information about your executables, and leave the left column as it is.
+% \section*{Current executable software version}
+% \label{}
+%
+% Ancillary data table required for sub version of the executable software: (x.1, x.2 etc.) kindly replace examples in right column with the correct information about your executables, and leave the left column as it is.
+%
 
 \end{document}
 \endinput
