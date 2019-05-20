@@ -208,7 +208,7 @@ Generally Splipy scripts follow a bottom-up construction scheme where curves are
 \label{sec:functionality}
 
 The library allows for rapid creation of elementary mathematical constructs such as line, circle, disc, sphere, torus, cylinder and teapots.
-Some of these have multiple parametrization options, such as disc or sphere, see section~\ref{sec:sphere}.
+Some of these have multiple parameterization options, such as disc or sphere, see section~\ref{sec:sphere}.
 
 The factory classes also contain spline-related constructors, such as \\
 \textbf{Curve Factories}
@@ -258,7 +258,7 @@ The factory classes also contain spline-related constructors, such as \\
       \label{fig:loft}
       \includegraphics[height=.28\textwidth]{figs/loft2}
     }
-    \caption{\textbf{surface\_factory:} splipy follows a bottom-up design principle where surfaces typically are constructed from defining curves}
+    \caption{\textbf{surface\_factory:} Splipy follows a bottom-up design principle where surfaces typically are constructed from defining curves}
   \end{center}
 \end{figure}
 
@@ -307,7 +307,7 @@ These iterations are carried out until the global tolerance is achieved.
 
 \subsubsection{Interior from edges}
 \label{sec:interior-from-edges}
-The default method to produce the interior mesh from 4 edge curves is an algorithm known as Coons Patch \cite{coons1967sfc}. The logic on this is the following. Assume that you have a parametrized left and right curve given as $c_1(v)$ and $c_2(v)$ as well as a bottom and top curve $c_3(u)$ and $c_4(u)$, and without loss of generality assume $u,v\in[0,1]$. By creating 3 different surfaces $S_1(u,v)$, $S_2(u,v)$ and $S_3(u,v)$ which interpolate the left/right curves, top/bottom curves and the four corners respectively
+The default method to produce the interior mesh from 4 edge curves is an algorithm known as Coons Patch \cite{coons1967sfc}. The logic on this is the following. Assume that you have a parameterized left and right curve given as $c_1(v)$ and $c_2(v)$ as well as a bottom and top curve $c_3(u)$ and $c_4(u)$, and without loss of generality assume $u,v\in[0,1]$. By creating 3 different surfaces $S_1(u,v)$, $S_2(u,v)$ and $S_3(u,v)$ which interpolate the left/right curves, top/bottom curves and the four corners respectively
 \begin{eqnarray*}
     S_1(u,v) & = & (1-u)c_1(v) + uc_2(v) \\
     S_2(u,v) & = & (1-v)c_3(u) + vc_4(u) \\
@@ -332,10 +332,10 @@ or the Poisson case this is done by setting up the following partial differentia
     \end{array}
 \end{equation}
 and then solving for $x$, typically through some numerical scheme such as the finite element method.
-In splipy this is done by the use of the Nutils library \cite{van_zwieten2018n} and is provided as an optional dependency.
+In Splipy this is done by the use of the Nutils library \cite{van_zwieten2018n} and is provided as an optional dependency.
 To complete the parametrization you would have to solve for both the parametrization of $y$ in addition to the one for $x$.
 
-For details on both the poisson and the elasticity implementation see the work of Hansvold \cite{hansvold2015mgt}. 
+For details on both the Poisson and the elasticity implementation see the work of Hansvold \cite{hansvold2015mgt}. 
 
 
 \subsubsection{Sphere parametrization}
@@ -363,7 +363,7 @@ Depending on where you would need optimal parametrization: the origin or the out
       \label{fig:disc-5patch}
       \includegraphics[height=.28\textwidth]{figs/disc-5patch}
     }
-    \caption{\textbf{Disc:} multiple discretization options for the same geometry is provided. Here we show three different versions of the disc $\|\mathbf{x}\|^2<1$, each with different benifits. In particular, the vanishing jacobian can be located at the domain center, boundary or interior respectively, depending on the particular needs of the application.}
+    \caption{\textbf{Disc:} multiple discretization options for the same geometry is provided. Here we show three different versions of the disc $\|\mathbf{x}\|^2<1$, each with different benefits. In particular, the vanishing Jacobian can be located at the domain center, boundary or interior respectively, depending on the particular needs of the application.}
     \label{fig:surface-disc}
   \end{center}
 \end{figure}
@@ -383,7 +383,7 @@ These are shown in Figure~\ref{fig:volume-disc}
       \label{fig:sphere-square}
       \includegraphics[height=.38\textwidth]{figs/sphere-square}
     }
-    \caption{\textbf{Sphere:} multiple discretization options for the same geometry is provided. Here we show two different versions of the unit ball $\|\mathbf{x}\|^2<1$. In particular, the vanishing jacobian can be located at the domain center or boundary. NURBS representations allow for perfect geometry representation in either case.}
+    \caption{\textbf{Sphere:} multiple discretization options for the same geometry is provided. Here we show two different versions of the unit ball $\|\mathbf{x}\|^2<1$. In particular, the vanishing Jacobian can be located at the domain center or boundary. NURBS representations allow for perfect geometry representation in either case.}
     \label{fig:volume-disc}
   \end{center}
 \end{figure}
@@ -406,9 +406,9 @@ This strategy is also described in \cite{Fonn2015sbm}.
 
 The objective of the mesh is to perform flow simulations \emph{around} the blade, so it is necessary also to create a volumetric mesh of a suitably large region.
 At each designated airfoil, a circular curve is generated at a certain radius, again with a consistent discretization in order to facilitate interpolation.
-The surface between the airofil and the circle is then mapped using a technique known as \emph{orthogonal transfinite interpolation} (OTI), see \cite{Fonn2015sbm} for details.
-This technique is intended to ensure that the meshlines near the airfoil lie orthogonal to the boundary, while the mesh itself remains suitably regular and not self intersecting.
-To ensure this, OTI uses an iterative process, generating the enveloping curve one meshline at a time from the interior toward the exterior.
+The surface between the airfoil and the circle is then mapped using a technique known as \emph{orthogonal transfinite interpolation} (OTI), see \cite{Fonn2015sbm} for details.
+This technique is intended to ensure that the mesh lines near the airfoil lie orthogonal to the boundary, while the mesh itself remains suitably regular and not self intersecting.
+To ensure this, OTI uses an iterative process, generating the enveloping curve one mesh line at a time from the interior toward the exterior.
 At each step, the enveloping curve is defined as a weighted mean between two curves: a standard linear interpolation between the \emph{previous} enveloping curve and the exterior circle, and the orthogonal outward projection of the previous enveloping curve by a suitable distance.
 The weight of this mean is chosen so that the orthogonal projection dominates near the airfoil, while the linear interpolation dominates further away.
 In addition to this, each enveloping curve is further smoothed by a Laplacian operator, further reducing the risk of self intersections.
@@ -431,7 +431,7 @@ Splipy's curve manipulation functions make it easy to implement this algorithm, 
 
 Isogeometric analysis was introduced in 2005 \cite{hughes2005iac} for applying native B-spline basis functions for both the geometry and finite element solution.
 One of the limiting factors of this endeavor has been that there have been sparse support for high quality B-spline mesh generation.
-Traditional meshing tools used for finite element technologies typically produce Lagrangian piecewise linear simplexes such as tetrahedrons.
+Traditional meshing tools used for finite element technologies typically produce Lagrangian piecewise linear simplex such as tetrahedrons.
 Commercial software typically allow the user to create low-quality geometries containing gaps, overlaps and non-matching interfaces.
 These are often referred to as ``dirty'' geometries by the industry, and while it is possible to create analysis suitable meshes, the process is currently tedious and time-consuming.
 
@@ -439,7 +439,7 @@ We hope that by this package allows researchers and engineers, especially in the
 
 While the package is a library and does not contain a dedicated graphical user interface (GUI), one should be able to create a CAD interface on top of it.
 We note that of particular interest is FreeCAD, which is an open source CAD software and supports python plugins.
-It would not be unreasonable to see a FreeCAD plugin of splipy that would greatly increase its utility and user-friendliness.
+It would not be unreasonable to see a FreeCAD plugin of Splipy that would greatly increase its utility and user-friendliness.
 
 % \textbf{This is the main section of the article and the reviewers weight the description here appropriately}
 % \begin{itemize}
@@ -457,7 +457,7 @@ Splipy is a python programming library which empowers users to work with B-splin
 It will lower the barrier of entry to create complex geometric shapes.
 It allows for fine-grained control over parametrizations to ensure high-quality meshes which are tailored specifically for analysis.
 
-\section*{Acknowledgements}
+\section*{Acknowledgments}
 \label{}
 
 The authors gratefully acknowledge the the financial support from the Norwegian Research Council and the FME NOWITECH (www.nowitech.no). They also acknowledge the support from the Norwegian University of Science and Technology.
@@ -513,7 +513,7 @@ C5 & Software code languages, tools, and services used & python \\
 \hline
 C6 & Compilation requirements, operating environments & numpy $\geq$ 1.15, scipy $\geq$ 1.2 \\
 \hline
-C7 & If available Link to developer documentation/manual & $https://sintefmath.github.io/Splipy/$ \\
+C7 & If available Link to developer documentation/manual & $https://sintefmath.github.io/splipy/$ \\
 \hline
 C8 & Support email for questions & Kjetil.Johannessen@sintef.no \\
 \hline
