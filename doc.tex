@@ -321,17 +321,17 @@ then the following surface will interpolate all edges simultaneously:
 While coons patch is incredible versatile it is not general enough that it will work on all cases.
 For harder input curves the resulting surface $S(u,v)$ might be self-intersecting and contain folds.
 For a more robust method it is possible to formulate the parametrization problem as Poisson problem or elasticity problem (linear or finite strain).
-or the Poisson case this is done by setting up the following partial differential equation:
+For the Poisson case this is done by setting up the following partial differential equation:
 \begin{equation}
     \begin{array}{rcll}
-    \frac{\partial^2 x}{\partial u^2} + \frac{\partial^2 x}{\partial u^2} & = & 0 &, u,v\in [0,1] \\
+    \frac{\partial^2 x}{\partial u^2} + \frac{\partial^2 x}{\partial v^2} & = & 0 &, u,v\in [0,1] \\
     x(0,v) & = & c_1(u) &, v = 0 \\
     x(1,v) & = & c_2(u) &, v = 1 \\
     x(u,0) & = & c_3(v) &, u = 0 \\
     x(u,1) & = & c_4(v) &, u = 1
     \end{array}
 \end{equation}
-and then solving for $x$, typically through some numerical scheme such as the finite element method.
+and then solving for $x$, typically through some numerical scheme such as the finite element or finite difference method.
 In Splipy this is done by the use of the Nutils library \cite{van_zwieten2018n} and is provided as an optional dependency.
 To complete the parametrization you would have to solve for both the parametrization of $y$ in addition to the one for $x$.
 
@@ -341,7 +341,7 @@ For details on both the Poisson and the elasticity implementation see the work o
 \subsubsection{Sphere parametrization}
 \label{sec:sphere}
 It is well known that perfect circles cannot be represented as B-splines, but can be represented as non-uniform rational B-splines (NURBS).
-However, there is multiple ways of parametrizing the circle and its surface and volume equivalent.
+However, there are multiple ways of parametrizing the circle and its surface and volume equivalent.
 In particular, we can do a polar parametrization which would include a geometric singularity point at the origin, or one might do what is dubbed a ``square'' parametrization which computes the interior of the four edge curves given by 4 circle segments.
 These can be seen in Figure~\ref{fig:surface-disc} along with a hybrid parametrization which uses 5 different patches.
 Note that the square parametrization, have a singular Jacobian at its four corners, where the isocurves in both parametric directions are parallel.
@@ -387,9 +387,6 @@ These are shown in Figure~\ref{fig:volume-disc}
     \label{fig:volume-disc}
   \end{center}
 \end{figure}
-
-\subsection{Sample code snippets analysis (optional)}
-\label{}
 
 \section{Illustrative Examples}
 \label{sec:naca}
